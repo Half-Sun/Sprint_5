@@ -25,7 +25,7 @@ class TestLocators:
     DESIGN_BURGER_TEXT = By.CSS_SELECTOR, "h1.text.text_type_main-large.mb-5.mt-10"
     STELLAR_BURGERS_LOGO = By.CSS_SELECTOR, "div.AppHeader_header__logo__2D0X2"
     EXIT_BUTTON_IN_MY_PROFILE = By.XPATH, '//button[text()="Выход"]'
-    CONSTRUCTOR_SAUSE_TAB = By.CSS_SELECTOR, ".tab_tab__1SPyG.pt-4.pr-10.pb-4.pl-10.noselect:nth-child(2)"
+    CONSTRUCTOR_SAUCE_TAB = By.CSS_SELECTOR, ".tab_tab__1SPyG.pt-4.pr-10.pb-4.pl-10.noselect:nth-child(2)"
     CONSTRUCTOR_FILLINGS_TAB = By.CSS_SELECTOR, ".tab_tab__1SPyG.pt-4.pr-10.pb-4.pl-10.noselect:nth-child(3)"
     CONSTRUCTOR_BUN_TAB = By.CSS_SELECTOR, ".tab_tab__1SPyG.pt-4.pr-10.pb-4.pl-10.noselect:nth-child(1)"
 
