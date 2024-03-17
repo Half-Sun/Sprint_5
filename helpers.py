@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from conftest import driver
 
 from locators import TestLocators
+
+
 def generate_password(length=8):
     chars = ascii_letters + digits
     password = "".join(random.choice(chars) for _ in range(length))
@@ -37,7 +39,6 @@ def perform_registration_and_login(driver):
     fill_registration_form(driver, name, email, password)
     click_my_account(driver)
     login_using_my_account(driver, email, password)
-
     return driver, name, email, password
 
 
@@ -62,29 +63,27 @@ def assert_element_text(driver, locator, expected_text):
     element = driver.find_element(*locator)
     assert element.text == expected_text
 
+
 def perform_login(driver, email, password):
     driver.get("https://stellarburgers.nomoreparties.site")
     driver.find_element(*TestLocators.ENTER_ACCOUNT_BUTTON).click()
     driver.find_element(*TestLocators.LOG_IN_FORM_EMAIL).send_keys(email)
     driver.find_element(*TestLocators.LOG_IN_FORM_PASSWORD).send_keys(password)
     driver.find_element(*TestLocators.LOG_IN_FORM_ENTER_BUTTON).click()
-
     WebDriverWait(driver, 10).until(EC.presence_of_element_located(TestLocators.GO_TO_CHECKOUT_BUTTON))
     button = driver.find_element(*TestLocators.GO_TO_CHECKOUT_BUTTON)
+
     assert button.text == "Оформить заказ", "Error: unexpected text"
 
 
 def setup_and_register(driver):
+    driver.get("https://stellarburgers.nomoreparties.site/register")
+    name = generate_name()
+    email = generate_email()
+    password = generate_password(8)
 
-        driver.get("https://stellarburgers.nomoreparties.site/register")
-
-        name = generate_name()
-        email = generate_email()
-        password = generate_password(8)
-
-        driver.find_element(*TestLocators.AUTHORIZATION_FORM_NAME).send_keys(name)
-        driver.find_element(*TestLocators.AUTHORIZATION_FORM_EMAIL).send_keys(email)
-        driver.find_element(*TestLocators.AUTHORIZATION_FORM_PASSWORD).send_keys(password)
-        driver.find_element(*TestLocators.AUTHORIZATION_FORM_REGISTER_BUTTON).click()
-
-        return driver, name, email, password
+    driver.find_element(*TestLocators.AUTHORIZATION_FORM_NAME).send_keys(name)
+    driver.find_element(*TestLocators.AUTHORIZATION_FORM_EMAIL).send_keys(email)
+    driver.find_element(*TestLocators.AUTHORIZATION_FORM_PASSWORD).send_keys(password)
+    driver.find_element(*TestLocators.AUTHORIZATION_FORM_REGISTER_BUTTON).click()
+    return email, password
